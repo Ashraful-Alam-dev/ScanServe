@@ -30,6 +30,22 @@ export const MOCK_MENU = [
     price: 199,
     category: 'Desserts',
     image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=60'
+  },
+  {
+    id: 'm5',
+    name: 'Buttermilk Fried Chicken',
+    description: 'Crispy buttermilk fried chicken breast, honey butter glaze, served with house slaw and pickles.',
+    price: 299,
+    category: 'Burgers',
+    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=500&auto=format&fit=crop&q=60'
+  },
+  {
+    id: 'm6',
+    name: 'Loaded Dirty Fries',
+    description: 'Crispy golden fries topped with melted cheddar, bacon bits, jalapeños, and drizzled with truffle aioli.',
+    price: 179,
+    category: 'Sides',
+    image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500&auto=format&fit=crop&q=60'
   }
 ];
 

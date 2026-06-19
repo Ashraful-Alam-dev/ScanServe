@@ -125,7 +125,6 @@ export default function CustomerHome() {
           <div className="bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-premium">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[80px] pointer-events-none" />
             <div className="max-w-xl space-y-4">
-              <span className="text-brand-500 uppercase tracking-widest text-xs font-bold bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">Table 04 Premium Portal</span>
               <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-none">Experience Haute Cuisine in Real-Time.</h2>
               <p className="text-zinc-400 text-sm md:text-base font-normal">
                 Select items from our digital culinary suite below. Watch our live kitchen process your exact selections frame-by-frame via smart operations synchronization.

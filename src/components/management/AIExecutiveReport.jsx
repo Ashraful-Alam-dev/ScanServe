@@ -17,7 +17,7 @@ export default function AIExecutiveReport() {
     : "None Recorded";
 
   const itemToBeImproved = Object.keys(itemQuantities).length > 0
-    ? Object.keys(itemQuantities).reduce((a, b) => itemQuantities[a] < itemQuantities[b] ? a : b)
+    ? Object.keys(itemQuantities).reduce((a, b) => itemQuantities[a] < itemQuantities[b] ? b : a)
     : "None Recorded";
 
   const lowRatingReviews = reviews.filter(r => (r.rating || 5) <= 3);

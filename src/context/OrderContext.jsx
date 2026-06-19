@@ -21,7 +21,9 @@ export function OrderProvider({ children }) {
     'm1': { name: 'Truffle Umami Burger Stock', current: 42, minThreshold: 15, unit: 'patties' },
     'm2': { name: 'Hot Honey Pepperoni Pizza Sourdough', current: 8, minThreshold: 20, unit: 'dough balls' }, 
     'm3': { name: 'Smoked Rosemary Old Fashioned Bourbon', current: 85, minThreshold: 10, unit: 'pours' },
-    'm4': { name: 'Deconstructed Matcha Tiramisu Mascarpone', current: 19, minThreshold: 8, unit: 'servings' }
+    'm4': { name: 'Deconstructed Matcha Tiramisu Mascarpone', current: 19, minThreshold: 8, unit: 'servings' },
+    'm5': { name: 'Buttermilk Fried Chicken Stock', current: 35, minThreshold: 12, unit: 'breasts' },
+    'm6': { name: 'Loaded Dirty Fries Potatoes', current: 25, minThreshold: 10, unit: 'kg' }
   });
 
   const addToCart = (item, quantity) => {
@@ -221,7 +223,7 @@ export function OrderProvider({ children }) {
       value={{
         orders, cart, notifications, inventory, reservations, reviews,
         addToCart, updateCartQuantity, placeOrder, updateOrderStatus,
-        markAllNotificationsRead, createReservation, updateReservationStatus, // Exported status update handler
+        markAllNotificationsRead, createReservation, updateReservationStatus,
         submitReview, generateAIReport
       }}
     >
