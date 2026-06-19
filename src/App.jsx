@@ -15,7 +15,7 @@ function WelcomePortal() {
 
       <div className="text-center max-w-2xl z-10 space-y-6">
         <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-medium text-brand-500 tracking-wide backdrop-blur-md">
-          ✨ ScanServe Restaurant Prototype v4.0
+          ✨ SyncServe Restaurant Prototype v4.0
         </div>
         
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-b from-white to-surface-200 bg-clip-text text-transparent">

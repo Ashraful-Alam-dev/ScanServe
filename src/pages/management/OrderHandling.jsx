@@ -9,7 +9,7 @@ export default function ManagementDashboard() {
   const countByStatus = (status) => orders.filter(o => o.status === status).length;
 
   const kpis = [
-    { label: 'Gross Pipeline Ledger', value: `${orders.reduce((s, o) => s + o.total, 0).toFixed(2)}`, desc: 'Aggregate platform scope', icon: '💰', color: 'border-l-zinc-900' },
+    { label: 'Gross Pipeline Ledger', value: `BDT ${orders.reduce((s, o) => s + o.total, 0).toFixed(2)}`, desc: 'Aggregate platform scope', icon: '💰', color: 'border-l-zinc-900' },
     { label: 'Pending Processing', value: countByStatus(ORDER_STATUSES.PENDING), desc: 'In queue framework', icon: '📥', color: 'border-l-amber-500' },
     { label: 'Active Cook Cycles', value: countByStatus(ORDER_STATUSES.COOKING), desc: 'On flame cluster', icon: '🍳', color: 'border-l-orange-500' },
     { label: 'Staged / Hot-Verified', value: countByStatus(ORDER_STATUSES.COOKED), desc: 'Awaiting dispatch', icon: '✨', color: 'border-l-blue-500' },
@@ -25,7 +25,7 @@ export default function ManagementDashboard() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-bold text-lg tracking-tight text-white">ScanServe Operations Hub</h1>
+              <h1 className="font-bold text-lg tracking-tight text-white">SyncServe Operations Hub</h1>
               <span className="bg-purple-500/10 text-purple-400 border border-purple-500/20 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">Kitchen Node Alpha</span>
             </div>
             <p className="text-xs text-zinc-400 font-medium">Enterprise Orchestration Management Layer</p>
@@ -180,12 +180,12 @@ export default function ManagementDashboard() {
                         <span className="font-mono font-bold text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded-sm mr-2">{item.quantity}x</span>
                         <span className="text-zinc-200 font-medium">{item.name}</span>
                       </div>
-                      <span className="font-mono text-zinc-400">${(item.price * item.quantity).toFixed(2)}</span>
+                      <span className="font-mono text-zinc-400">BDT {(item.price * item.quantity).toFixed(2)}</span>
                     </div>
                   ))}
                   <div className="pt-3 mt-3 flex justify-between items-center text-xs font-bold text-white">
                     <span>Total Financial Value Manifested</span>
-                    <span className="text-base text-brand-400 font-mono">${selectedOrder.total.toFixed(2)}</span>
+                    <span className="text-base text-brand-400 font-mono">BDT {selectedOrder.total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>

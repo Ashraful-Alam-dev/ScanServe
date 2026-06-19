@@ -27,7 +27,7 @@ export default function ManagementWorkspace() {
               S
             </div>
             <div>
-              <h1 className="font-bold text-sm tracking-tight">SCANSERVE</h1>
+              <h1 className="font-bold text-sm tracking-tight">SyncSERVE</h1>
               <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest -mt-0.5">Control Terminal</p>
             </div>
           </div>

@@ -21,7 +21,7 @@ export default function CustomerWorkspace() {
 
             <div>
               <h1 className="font-extrabold text-base tracking-tight">
-                SCANSERVE
+                SYNCSERVE
               </h1>
 
               <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-[0.25em] mt-0.5">

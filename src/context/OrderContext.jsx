@@ -195,7 +195,7 @@ export function OrderProvider({ children }) {
     const lowStockAlerts = Object.keys(inventory || {}).filter(id => inventory[id].current <= inventory[id].minThreshold).map(id => ({ name: inventory[id].name, current: inventory[id].current, unit: inventory[id].unit }));
     const criticalReviewAlerts = menuDiagnostics.filter(d => d.avgReview !== 'N/A' && Number(d.avgReview) <= 3.5);
 
-    let summaryParagraph = `VeloceOS optimization metrics identify strong market traction for the ${topSeller?.name || 'core menu'}. `;
+    let summaryParagraph = `SyncServe optimization metrics identify strong market traction for the ${topSeller?.name || 'core menu'}. `;
     let logicActionableNode = "Maintain active price scaling strategies.";
 
     if (lowStockAlerts.length > 0) {

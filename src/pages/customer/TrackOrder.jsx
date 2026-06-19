@@ -58,13 +58,13 @@ export default function TrackOrder() {
                   <span className="font-bold text-zinc-900 mr-2">{item?.quantity}x</span>
                   <span className="text-zinc-600">{item?.name}</span>
                 </div>
-                <span className="font-mono text-zinc-500">${((item?.price || 0) * (item?.quantity || 0)).toFixed(2)}</span>
+                <span className="font-mono text-zinc-500">BDT {((item?.price || 0) * (item?.quantity || 0)).toFixed(2)}</span>
               </div>
             ))}
           </div>
           <div className="flex justify-between items-center pt-4 border-t border-zinc-100 text-xs font-bold text-zinc-900">
             <span>Total Capital Manifested</span>
-            <span className="text-base text-brand-600">${order?.total?.toFixed(2)}</span>
+            <span className="text-base text-brand-600">BDT {order?.total?.toFixed(2)}</span>
           </div>
         </div>
 

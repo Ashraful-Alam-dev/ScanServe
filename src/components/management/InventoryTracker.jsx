@@ -1,16 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useOrders } from '../../context/OrderContext';
 
 export default function InventoryTracker() {
   const { orders = [] } = useOrders() || {};
 
   const [stock, setStock] = useState([
-    { id: 'ing-01', name: 'Premium Angus Beef Patties', quantity: 48, unit: 'units', minimum: 15 },
+    { id: 'ing-01', name: 'Premium Angus Beef Burgers', quantity: 48, unit: 'units', minimum: 15 },
     { id: 'ing-02', name: 'Artisanal Brioche Buns', quantity: 60, unit: 'units', minimum: 15 },
     { id: 'ing-03', name: 'Fresh Avocado Pulp', quantity: 8, unit: 'kg', minimum: 10 },
     { id: 'ing-04', name: 'Truffle Aioli Emulsion', quantity: 4.5, unit: 'liters', minimum: 2.0 },
     { id: 'ing-05', name: 'Imported Parmigiano Reggiano', quantity: 12, unit: 'kg', minimum: 5 }
   ]);
+
+  const salesMetrics = useMemo(() => {
+    try {
+      const storedOrders = localStorage.getItem('smart_resto_orders');
+      const ordersList = storedOrders ? JSON.parse(storedOrders) : [];
+      
+      let grandTotalSales = 0;
+      const itemSalesTracker = {};
+
+      ordersList.forEach(order => {
+        grandTotalSales += (order.total || 0);
+
+        (order.items || []).forEach(item => {
+          const lowerName = item.name.toLowerCase();
+          
+          if (!itemSalesTracker[lowerName]) {
+            itemSalesTracker[lowerName] = {
+              name: item.name,
+              unitsSold: 0,
+              totalRevenue: 0
+            };
+          }
+          itemSalesTracker[lowerName].unitsSold += (item.quantity || 0);
+          itemSalesTracker[lowerName].totalRevenue += ((item.price || 0) * (item.quantity || 0));
+        });
+      });
+
+      return { grandTotalSales, itemSalesTracker };
+    } catch (error) {
+      console.error("Failed to parse sales ledger data from storage", error);
+      return { grandTotalSales: 0, itemSalesTracker: {} };
+    }
+  }, [orders]);
 
   const handleRestock = (id) => {
     setStock(prev => prev.map(item => 
@@ -24,8 +57,20 @@ export default function InventoryTracker() {
     <div className="space-y-6 animate-in fade-in duration-200">
       <div className="flex justify-between items-center border-b border-zinc-200 pb-4">
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-zinc-900">Inventory Supply Monitoring</h2>
+          <h2 className="text-xl font-bold tracking-tight text-zinc-900">SyncServe Analytics & Supply Monitoring</h2>
           <p className="text-xs text-zinc-400 font-medium uppercase tracking-wider mt-0.5">Live Raw Material Ledger</p>
+        </div>
+      </div>
+
+      <div className="bg-zinc-900 text-white p-6 rounded-2xl shadow-premium flex flex-col justify-between sm:flex-row items-start sm:items-center gap-4">
+        <div>
+          <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider">Gross Revenue </p>
+          <h3 className="text-3xl font-black tracking-tight mt-1">
+            {salesMetrics.grandTotalSales.toLocaleString()}
+          </h3>
+        </div>
+        <div className="text-xs bg-zinc-800 px-3 py-1.5 rounded-xl text-zinc-300 border border-zinc-700/50">
+          📍 Base Currency: <span className="text-white font-bold">BDT </span>
         </div>
       </div>
 
@@ -34,9 +79,16 @@ export default function InventoryTracker() {
           {stock.map(item => {
             const isCritical = item.quantity <= item.minimum;
             
+            const matchKey = item.name.toLowerCase().includes('beef') ? 'burger' : item.name.toLowerCase();
+            
+            const associatedSales = Object.values(salesMetrics.itemSalesTracker).find(
+              saleItem => saleItem.name.toLowerCase().includes(matchKey) || matchKey.includes(saleItem.name.toLowerCase())
+            ) || { unitsSold: 0, totalRevenue: 0 };
+
             return (
-              <div key={item.id} className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:bg-zinc-50/40 transition-colors">
-                <div className="space-y-1">
+              <div key={item.id} className="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 group hover:bg-zinc-50/40 transition-colors">
+                
+                <div className="space-y-1 flex-1">
                   <div className="flex items-center gap-2">
                     <h4 className="font-bold text-sm text-zinc-900">{item.name}</h4>
                     {isCritical && (
@@ -48,8 +100,23 @@ export default function InventoryTracker() {
                   <p className="text-[10px] font-mono text-zinc-400 font-bold uppercase tracking-wider">Resource Allocation ID: {item.id}</p>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-end gap-6">
-                  <div className="text-right">
+                <div className="flex flex-wrap items-center gap-6 sm:gap-10 justify-between lg:justify-end">
+                  
+                  <div className="text-left sm:text-right min-w-[100px]">
+                    <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider">Units Sold</p>
+                    <p className="font-bold text-sm text-zinc-800 mt-0.5">
+                      {associatedSales.unitsSold} dispatched
+                    </p>
+                  </div>
+
+                  <div className="text-left sm:text-right min-w-[120px]">
+                    <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider">Net Sales</p>
+                    <p className="font-mono text-sm font-bold text-emerald-600 mt-0.5">
+                      {associatedSales.totalRevenue.toLocaleString()}
+                    </p>
+                  </div>
+
+                  <div className="text-left sm:text-right min-w-[100px]">
                     <p className={`font-mono text-sm font-bold ${isCritical ? 'text-rose-600' : 'text-zinc-900'}`}>
                       {item.quantity} {item.unit}
                     </p>
@@ -63,6 +130,7 @@ export default function InventoryTracker() {
                     ⚡ Top Up
                   </button>
                 </div>
+
               </div>
             );
           })}

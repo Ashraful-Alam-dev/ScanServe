@@ -64,7 +64,7 @@ export default function CustomerHome() {
             S
           </div>
           <div>
-            <h1 className="font-bold text-base tracking-tight">SCANSERVE</h1>
+            <h1 className="font-bold text-base tracking-tight">SYNCSERVE</h1>
             <p className="text-[10px] text-zinc-400 font-medium uppercase tracking-widest -mt-1">Bespoke Dining</p>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function CustomerHome() {
                   <div className="h-44 overflow-hidden relative">
                     <img src={item?.image} alt={item?.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-zinc-900 text-xs font-bold px-2.5 py-1 rounded-lg border border-white/40 shadow-xs">
-                      ${item?.price?.toFixed(2)}
+                      BDT {item?.price?.toFixed(2)}
                     </span>
                   </div>
                   <div className="p-5 flex flex-col flex-1 justify-between space-y-4">
@@ -243,7 +243,7 @@ export default function CustomerHome() {
                           {order?.timestamp ? new Date(order.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}
                         </span>
                         <div className="flex items-center gap-3">
-                          <span className="font-bold text-zinc-900">${order?.total?.toFixed(2)}</span>
+                          <span className="font-bold text-zinc-900">BDT {order?.total?.toFixed(2)}</span>
 
                           {isDelivered && !isReviewingThis && (
                             <button 
@@ -335,14 +335,14 @@ export default function CustomerHome() {
                     <img src={item?.image} alt={item?.name} className="w-16 h-16 object-cover rounded-lg" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold text-xs text-zinc-900 truncate">{item?.name}</h4>
-                      <p className="text-xs text-brand-600 font-semibold mt-0.5">${item?.price?.toFixed(2)}</p>
+                      <p className="text-xs text-brand-600 font-semibold mt-0.5">BDT {item?.price?.toFixed(2)}</p>
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center gap-2">
                           <button onClick={() => updateCartQuantity && updateCartQuantity(item.id, item.quantity - 1)} className="text-xs font-bold text-zinc-400 hover:text-zinc-900">－</button>
                           <span className="text-xs font-bold px-1.5">{item?.quantity}</span>
                           <button onClick={() => updateCartQuantity && updateCartQuantity(item.id, item.quantity + 1)} className="text-xs font-bold text-zinc-400 hover:text-zinc-900">＋</button>
                         </div>
-                        <span className="text-xs font-bold text-zinc-800">${((item?.price || 0) * (item?.quantity || 0)).toFixed(2)}</span>
+                        <span className="text-xs font-bold text-zinc-800">BDT {((item?.price || 0) * (item?.quantity || 0)).toFixed(2)}</span>
                       </div>
                     </div>
                   </div>
@@ -354,10 +354,10 @@ export default function CustomerHome() {
             {cart && cart.length > 0 && (
               <form onSubmit={handleCheckout} className="border-t border-zinc-100 pt-4 space-y-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase text-zinc-400 tracking-wider mb-1.5">Customer Identity (Demo Label)</label>
+                  <label className="block text-xs font-bold uppercase text-zinc-400 tracking-wider mb-1.5">Customer Code</label>
                   <input 
                     type="text" 
-                    placeholder="e.g. CEO Key Investor Room" 
+                    placeholder="Unique Identity"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     required
@@ -365,15 +365,14 @@ export default function CustomerHome() {
                   />
                 </div>
                 <div className="space-y-1.5 text-xs text-zinc-500 py-1 border-b border-zinc-100 border-dashed">
-                  <div className="flex justify-between"><span>Subtotal Ledger</span><span>${cartTotal.toFixed(2)}</span></div>
-                  <div className="flex justify-between"><span>Operational Platform Fee</span><span className="text-brand-600 font-medium">FREE (DEMO)</span></div>
-                  <div className="flex justify-between font-bold text-sm text-zinc-900 pt-1"><span>Total Estimated Due</span><span>${cartTotal.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span>Subtotal Ledger</span><span>BDT {cartTotal.toFixed(2)}</span></div>
+                  <div className="flex justify-between font-bold text-sm text-zinc-900 pt-1"><span>Total Estimated Due</span><span>BDT {cartTotal.toFixed(2)}</span></div>
                 </div>
                 <button 
                   type="submit" 
                   className="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  🚀 Deploy Order Stream to Management Dashboard
+                  🚀 Confirm Order
                 </button>
               </form>
             )}
